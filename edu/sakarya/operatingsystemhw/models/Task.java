@@ -35,19 +35,19 @@ public class Task implements ITask{
     /*
     * Processin cpuyu elinde tutmak istedigi sure
     */
-    private int processTime;
+    private final Integer processTime;
 
     /*
      * Processin cpuda gecirdigi sure
      */
-    private int burnTime;
+    private Integer burnTime;
 
     /*
      * Processin oncelik degeri
      */
-    private int priority;
+    private Integer priority;
 
-    public Task(int processTime, int priority) {
+    public Task(Integer processTime, Integer priority) {
         this.id = UUID.randomUUID();
         this.startTime = System.currentTimeMillis();
         this.burnTime = 0;
@@ -58,17 +58,15 @@ public class Task implements ITask{
         this.onCreate();
     }
 
-    private void setState(States state) {
-        this.state = state;
-        this.onStateChanged();
-    }
-
     public UUID getId() {
         return id;
     }
 
     public States getState() {
         return state;
+    }
+    public void setState(States state) {
+        this.state = state;
     }
 
     public Colors getColor() {
@@ -79,42 +77,47 @@ public class Task implements ITask{
         return startTime;
     }
 
-    public int getProcessTime() {
+    public Integer getProcessTime() {
         return processTime;
     }
 
-    public void setProcessTime(int processTime) {
-        this.processTime = processTime;
-    }
-
-    public int getBurnTime() {
+    public Integer getBurnTime() {
         return burnTime;
     }
 
-    public void setBurnTime(int burnTime) {
+    public void setBurnTime(Integer burnTime) {
         this.burnTime = burnTime;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-        @Override
-    public void onCreate() {
-        Messages.ON_CREATE.sendMessageForTask(this);
-    }
-
-    @Override
-    public void onTick() {
-        Messages.ON_TICK.sendMessageForTask(this);
+    public Integer getRemainingTime() {
+        return this.processTime - this.burnTime;
     }
 
     @Override
     public void onStateChanged() {
         Messages.ON_STATE_CHANGED.sendMessageForTask(this);
+    }
+
+    @Override
+    public void onCreate() {
+        Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.CREATED.getStateMessage());
+    }
+
+    @Override
+    public void onTick() {
+        Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.RUNNING.getStateMessage());
+    }
+
+    public void burn(){
+        this.burnTime++;
+        this.onTick();
     }
 }
