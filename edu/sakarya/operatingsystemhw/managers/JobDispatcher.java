@@ -3,6 +3,7 @@ package edu.sakarya.operatingsystemhw.managers;
 import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.models.Task;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -16,11 +17,15 @@ public class JobDispatcher {
     private long cursor;
     private final RandomAccessFile file;
 
+    public JobDispatcher(File file) throws FileNotFoundException {
+        this.file = new RandomAccessFile(file, "r");
+    }
+
     public JobDispatcher(String filePath) throws FileNotFoundException {
-        // Dosya okuyucuyu oluştur
-
         this.file = new RandomAccessFile(filePath, "r");
+    }
 
+    public void run(){
         // İmleç başlangıç noktasını ayarla
         cursor = 0;
         executeTime = 0;
@@ -29,10 +34,9 @@ public class JobDispatcher {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("start timer");
                 try {
                     for (ITask task : dispatch())
-                    QueueManager.getInstance().addTheQueue(((Task) task).getPriority(),task);
+                        QueueManager.getInstance().addTheQueue((Task) task);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -41,7 +45,6 @@ public class JobDispatcher {
 
         };
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
-
     }
 
     public List<ITask> dispatch() throws IOException {
