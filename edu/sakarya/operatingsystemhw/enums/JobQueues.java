@@ -1,6 +1,5 @@
 package edu.sakarya.operatingsystemhw.enums;
 
-import edu.sakarya.operatingsystemhw.engines.*;
 import edu.sakarya.operatingsystemhw.interfaces.QueueEngine;
 
 public enum JobQueues {

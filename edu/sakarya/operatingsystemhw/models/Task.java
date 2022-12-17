@@ -1,9 +1,9 @@
 package edu.sakarya.operatingsystemhw.models;
 
+import edu.sakarya.operatingsystemhw.enums.Colors;
 import edu.sakarya.operatingsystemhw.enums.Messages;
 import edu.sakarya.operatingsystemhw.enums.States;
 import edu.sakarya.operatingsystemhw.interfaces.ITask;
-import edu.sakarya.operatingsystemhw.enums.Colors;
 import edu.sakarya.operatingsystemhw.managers.ColorManager;
 
 import java.util.UUID;

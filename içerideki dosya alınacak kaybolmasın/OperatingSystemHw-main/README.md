@@ -1,2 +1,0 @@
-# OperatingSystemHw
-OperatingSystemHomework

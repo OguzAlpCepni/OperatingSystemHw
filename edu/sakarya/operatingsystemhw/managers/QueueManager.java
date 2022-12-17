@@ -1,6 +1,5 @@
 package edu.sakarya.operatingsystemhw.managers;
 
-import edu.sakarya.operatingsystemhw.interfaces.IQueue;
 import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.models.JobQueue;
 import edu.sakarya.operatingsystemhw.models.PriortyQueue;

@@ -1,12 +1,12 @@
 package edu.sakarya.operatingsystemhw.managers;
 
+import edu.sakarya.operatingsystemhw.enums.Colors;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import edu.sakarya.operatingsystemhw.enums.Colors;
 
 public class ColorManager {
     /*
