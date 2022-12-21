@@ -61,7 +61,7 @@ public class JobDispatcher {
         while ((line = this.file.readLine()) != null) {
             String[] parts = line.split(",");
             if (parts[0].startsWith(String.valueOf(executeTime))) {
-                tasks.add(new Task(Integer.parseInt(parts[2]), Integer.parseInt(parts[1])));
+                tasks.add(new Task(Integer.parseInt(parts[2].trim()), Integer.parseInt(parts[1].trim())));
             } else {
                 // Eşleşme bulunamadığı için döngüyü sonlandır
                 found = true;
