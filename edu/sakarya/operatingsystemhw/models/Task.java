@@ -1,11 +1,16 @@
 package edu.sakarya.operatingsystemhw.models;
 
+import edu.sakarya.operatingsystemhw.Main;
 import edu.sakarya.operatingsystemhw.enums.Colors;
 import edu.sakarya.operatingsystemhw.enums.Messages;
 import edu.sakarya.operatingsystemhw.enums.States;
 import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.managers.ColorManager;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 public class Task implements ITask{
@@ -46,6 +51,11 @@ public class Task implements ITask{
      * Processin oncelik degeri
      */
     private Integer priority;
+
+    /*
+     * Taske ait process nesnesi
+     */
+    private Process process;
 
     public Task(Integer processTime, Integer priority) {
         this.id = UUID.randomUUID();
@@ -109,11 +119,27 @@ public class Task implements ITask{
     @Override
     public void onCreate() {
         Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.CREATED.getStateMessage());
+        try {
+            Path path = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            String command = "java " + path.toAbsolutePath().toString() + " simulationProcess";
+            try {
+                this.process = new ProcessBuilder(command).start();
+            } catch(IOException e) {
+                e.printStackTrace();
+                this.process = null;
+            }
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void onTick() {
-        Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.RUNNING.getStateMessage());
+        try {
+            this.process.getOutputStream().write(Messages.ON_STATE_CHANGED.getMessage().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void burn(){

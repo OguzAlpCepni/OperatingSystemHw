@@ -5,16 +5,24 @@ import edu.sakarya.operatingsystemhw.managers.JobDispatcher;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Main {
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		if(args.length == 0) {
-			System.out.println("Please enter the file path as a parameter.");
+		if(args.length == 1 && args[0].equalsIgnoreCase("simulationProcess")){
+			Scanner scanner = new Scanner(System.in);
+			String newLine = "";
+			while((newLine = scanner.nextLine()) != null){
+				System.out.println(newLine);
+			}
 			return;
 		}
-
-		File file = new File(args[0]);
+		File file = null;
+		if(args.length != 1){
+			System.out.println("Dosya Bulunamadi.");
+		}
+		file = new File(args[0]);
 		if(!file.exists()) {
 			System.out.println("File not found.");
 			return;
