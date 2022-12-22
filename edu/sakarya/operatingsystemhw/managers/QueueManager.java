@@ -9,30 +9,33 @@ import java.util.HashMap;
 
 public class QueueManager {
 
-     private static final QueueManager queueManager;
+    private static QueueManager queueManager;
+    private HashMap<Integer, JobQueue<ITask>> queues;
 
     private QueueManager() {
-
+    	queues = new HashMap<Integer, JobQueue<ITask>>();
+        queues.put(0,new PriortyQueue<ITask>(0));
+        queues.put(1,new PriortyQueue<ITask>(1));
+        queues.put(2,new PriortyQueue<ITask>(2));
+        queues.put(3,new PriortyQueue<ITask>(3));
     }
 
-    static  {
-        queueManager =new QueueManager();
-        queueManager.queues.put(0,new PriortyQueue<ITask>(0));
-        queueManager.queues.put(1,new PriortyQueue<ITask>(1));
-        queueManager.queues.put(2,new PriortyQueue<ITask>(2));
-        queueManager.queues.put(3,new PriortyQueue<ITask>(3));
-    }
-    HashMap<Integer, JobQueue<ITask>> queues = new HashMap<Integer, JobQueue<ITask>>();
 
     public void addTheQueue(Task task){
         queues.get(task.getPriority()).push(task);
     }
+    
     public static QueueManager getInstance(){
+    	if(queueManager == null) queueManager = new QueueManager();
         return queueManager;
     }
 
 
     public Task getNextTask() {
-        return null;
+    	for(int i = 3;i >= 0;i++) {
+    		Task task = (Task) queues.get(i).pop();
+    		if(task != null) return task;
+    	}
+    	return null;
     }
 }

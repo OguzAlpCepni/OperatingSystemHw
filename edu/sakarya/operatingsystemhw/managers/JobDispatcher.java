@@ -1,6 +1,5 @@
 package edu.sakarya.operatingsystemhw.managers;
 
-import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.models.Task;
 
 import java.io.File;
@@ -35,8 +34,8 @@ public class JobDispatcher {
             @Override
             public void run() {
                 try {
-                    for (ITask task : dispatch())
-                        QueueManager.getInstance().addTheQueue((Task) task);
+                    for (Task task : dispatch())
+                        QueueManager.getInstance().addTheQueue(task);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -47,9 +46,9 @@ public class JobDispatcher {
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-    public List<ITask> dispatch() throws IOException {
+    public List<Task> dispatch() throws IOException {
         // Boş bir tasks listesi oluştur
-        List<ITask> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
         // Dosya imlecini kaldığı yerden devam etmesi için ayarla
         this.file.seek(cursor);

@@ -119,17 +119,16 @@ public class Task implements ITask{
     @Override
     public void onCreate() {
         Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.CREATED.getStateMessage());
+        
+        //or
+        
+        String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1).replaceAll("/", "\\\\\\\\");
+        String command = "java -jar \"" + path + "\" simulationProcess";
         try {
-            Path path = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            String command = "java " + path.toAbsolutePath().toString() + " simulationProcess";
-            try {
-                this.process = new ProcessBuilder(command).start();
-            } catch(IOException e) {
-                e.printStackTrace();
-                this.process = null;
-            }
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            this.process = new ProcessBuilder(command).start();
+        } catch(IOException e) {
+            e.printStackTrace();
+            this.process = null;
         }
     }
 
