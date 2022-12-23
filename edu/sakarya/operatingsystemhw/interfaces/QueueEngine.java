@@ -1,11 +1,13 @@
 package edu.sakarya.operatingsystemhw.interfaces;
 
-public interface QueueEngine<T> {
+import edu.sakarya.operatingsystemhw.models.Task;
+
+public interface QueueEngine {
     // Method to add an element to the queue
-    public void enqueue(T item);
+    public void enqueue(Task item);
 
     // Method to remove an element from the queue
-    public T dequeue();
+    public Task dequeue();
 
     // Method to return the size of the queue
     public int size();

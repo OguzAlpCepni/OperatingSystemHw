@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,13 +16,16 @@ public class JobDispatcher {
     private int executeTime;
     private long cursor;
     private final RandomAccessFile file;
+    private final Timer timer;
 
     public JobDispatcher(File file) throws FileNotFoundException {
         this.file = new RandomAccessFile(file, "r");
+        this.timer = new Timer();
     }
 
     public JobDispatcher(String filePath) throws FileNotFoundException {
         this.file = new RandomAccessFile(filePath, "r");
+        this.timer = new Timer();
     }
 
     public void run(){
@@ -29,7 +33,6 @@ public class JobDispatcher {
         cursor = 0;
         executeTime = 0;
 
-        Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -51,8 +54,13 @@ public class JobDispatcher {
         List<Task> tasks = new ArrayList<>();
 
         // Dosya imlecini kaldığı yerden devam etmesi için ayarla
-        this.file.seek(cursor);
-
+        try {
+        	this.file.seek(cursor);	
+        }catch(IOException ex) {
+        	this.timer.cancel();
+        	return Collections.emptyList();
+        }
+        
         // Dosyayı satır satır oku ve executeTime ile başlayan satırları kullanarak
         // ITask nesneleri oluştur
         String line;
