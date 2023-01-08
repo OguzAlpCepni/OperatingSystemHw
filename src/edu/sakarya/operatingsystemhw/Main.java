@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
+	//Hello world,
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		if(args.length == 1 && args[0].equalsIgnoreCase("simulationProcess")){
