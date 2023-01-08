@@ -2,7 +2,6 @@ package edu.sakarya.operatingsystemhw;
 
 import edu.sakarya.operatingsystemhw.engines.FeedbackCollector;
 import edu.sakarya.operatingsystemhw.engines.SchedulingEngine;
-import edu.sakarya.operatingsystemhw.enums.Colors;
 import edu.sakarya.operatingsystemhw.managers.JobDispatcher;
 
 import java.io.File;

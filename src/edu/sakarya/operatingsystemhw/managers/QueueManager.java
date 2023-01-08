@@ -2,6 +2,7 @@ package edu.sakarya.operatingsystemhw.managers;
 
 import edu.sakarya.operatingsystemhw.engines.FIFOQueueEngine;
 import edu.sakarya.operatingsystemhw.enums.States;
+import edu.sakarya.operatingsystemhw.exceptions.EmptyQueueException;
 import edu.sakarya.operatingsystemhw.models.JobQueue;
 import edu.sakarya.operatingsystemhw.models.Task;
 
@@ -56,7 +57,7 @@ public class QueueManager {
     	
     }
 
-    public Task getNextTask() {
+    public Task getNextTask() throws EmptyQueueException {
     	Task pickedTask = this.chooseNextTask();
     	
     	if(lastTask.isPresent() && pickedTask != null && !pickedTask.equals(lastTask.get())) {
@@ -64,6 +65,11 @@ public class QueueManager {
     	}
 
 		lastTask = Optional.ofNullable(pickedTask);
+		
+		if(pickedTask == null) {
+			throw new EmptyQueueException();
+		}
+		
     	return pickedTask;
     }
     

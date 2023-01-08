@@ -2,6 +2,7 @@ package edu.sakarya.operatingsystemhw.engines;
 
 import edu.sakarya.operatingsystemhw.enums.Settings;
 import edu.sakarya.operatingsystemhw.enums.States;
+import edu.sakarya.operatingsystemhw.exceptions.EmptyQueueException;
 import edu.sakarya.operatingsystemhw.managers.QueueManager;
 import edu.sakarya.operatingsystemhw.models.Task;
 
@@ -23,13 +24,20 @@ public class SchedulingEngine {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                Task task = queueManager.getNextTask();
+                Task task = null;
+				try {
+					task = queueManager.getNextTask();
+				} catch(EmptyQueueException e) {
+					System.out.println("All queues empty, shutding down");
+					System.exit(0);
+				}
                 if(task != null){
                     switch(task.getState()){
                         case READY:
-                        case STOPPED:
                         case WAITING:
                             task.setState(States.RUNNING);
+                        case STOPPED:
+                        	break;
                         default:
                             task.burn();
                             if(task.getBurnTime() >= task.getProcessTime()){
@@ -42,7 +50,10 @@ public class SchedulingEngine {
                 runtimeClock++;
             }
         };
-        timer.scheduleAtFixedRate(timerTask, 0, Settings.PROCESS_SCHEDULING_QUANTUM_TIME.getAsInteger());
+        timer.scheduleAtFixedRate(timerTask, 
+    		(long)(Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_WORKERS.getAsDouble() * Settings.PROCESS_SCHEDULING_QUANTUM_TIME.getAsInteger()), 
+    		Settings.PROCESS_SCHEDULING_QUANTUM_TIME.getAsInteger()
+		);
     }
 
     public static SchedulingEngine getInstance() {

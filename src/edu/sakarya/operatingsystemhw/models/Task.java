@@ -73,10 +73,18 @@ public class Task implements ITask{
         return state;
     }
     public void setState(States state) {
-    	if(this.state == state) return;
+    	if(this.state == state) 
+    		return;
         
     	this.state = state;
-        this.onStateChanged();
+    	
+    	if(state == States.RUNNING) 
+    		return;
+    	
+    	if(state == States.WAITING && this.getRemainingTime() <= 0)
+    		return;
+    	
+    	this.onStateChanged();
     	
     }
 
