@@ -22,12 +22,12 @@ public class FeedbackCollector {
             @Override
             public void run() {
             	JobQueue queue = queueManager.getFeedbackQueue();
-            	while(queue.isEmpty()) {
+            	while(!queue.isEmpty()) {
             		Task task = queue.pop();
             		
             		if(task == null) continue;
             		
-            		if(task.getPriority() != Settings.MIN_REACHABLE_PRIORITY_EXCHANGE_LIMIT.getAsInteger()) {
+            		if(task.getPriority() -1 >= Settings.MIN_REACHABLE_PRIORITY_EXCHANGE_LIMIT.getAsInteger()) {
             			task.setPriority(task.getPriority() - Settings.FEEDBACK_PRIORITY_STEP.getAsInteger());
             		}
             		

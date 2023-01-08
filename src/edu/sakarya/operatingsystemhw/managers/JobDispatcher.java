@@ -1,5 +1,6 @@
 package edu.sakarya.operatingsystemhw.managers;
 
+import edu.sakarya.operatingsystemhw.enums.Settings;
 import edu.sakarya.operatingsystemhw.models.Task;
 
 import java.io.File;
@@ -17,6 +18,7 @@ public class JobDispatcher {
     private long cursor;
     private final RandomAccessFile file;
     private final Timer timer;
+    private int eligableProcessId = 1;
 
     public JobDispatcher(File file) throws FileNotFoundException {
         this.file = new RandomAccessFile(file, "r");
@@ -46,7 +48,7 @@ public class JobDispatcher {
 
 
         };
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+        timer.scheduleAtFixedRate(timerTask, 0, Settings.JOB_DISPATCHER_QUANTUM_TIME.getAsInteger());
     }
 
     public List<Task> dispatch() throws IOException {
@@ -68,7 +70,7 @@ public class JobDispatcher {
         while ((line = this.file.readLine()) != null) {
             String[] parts = line.split(",");
             if (parts[0].startsWith(String.valueOf(executeTime))) {
-                tasks.add(new Task(Integer.parseInt(parts[2].trim()), Integer.parseInt(parts[1].trim())));
+                tasks.add(new Task(eligableProcessId++,Integer.parseInt(parts[0].trim()), Integer.parseInt(parts[2].trim()), Integer.parseInt(parts[1].trim())));
             } else {
                 // Eşleşme bulunamadığı için döngüyü sonlandır
                 found = true;
@@ -84,8 +86,6 @@ public class JobDispatcher {
 
             // executeTime'i güncelle
             executeTime++;
-
-        	
         }
 
         // Oluşturulan tasks listesini geri döndür

@@ -37,14 +37,14 @@ public enum Messages {
      */
     private String formatMessageForTask(Task task, Map<String, String> customValues) {
         String messageTemplate = this.getMessage();
-        messageTemplate = messageTemplate.replace("{id}", customValues.getOrDefault("id", task.getId().toString()));
+        messageTemplate = messageTemplate.replace("{id}", String.format(Settings.INTEGER_MESSAGES_FORMAT.getAsString(), customValues.getOrDefault("id", task.getId().toString())));
         messageTemplate = messageTemplate.replace("{priority}", customValues.getOrDefault("priority", String.valueOf(task.getPriority())));
         messageTemplate = messageTemplate.replace("{state}", customValues.getOrDefault("state", task.getState().getStateMessage()));
         messageTemplate = messageTemplate.replace("{priority}",  customValues.getOrDefault("priority",String.valueOf(task.getPriority())));
-        messageTemplate = messageTemplate.replace("{processTime}",  customValues.getOrDefault("processTime", String.valueOf(task.getProcessTime())));
-        messageTemplate = messageTemplate.replace("{reaming_time}",  customValues.getOrDefault("reaming_time", String.valueOf(task.getRemainingTime())));
-        messageTemplate = messageTemplate.replace("{state_message}",  customValues.getOrDefault("state_message", task.getState().getStateMessage()));
-        messageTemplate = messageTemplate.replace("{runtime_clock}",  customValues.getOrDefault("runtime_clock", String.valueOf(SchedulingEngine.getInstance().getRuntimeClock())));
+        messageTemplate = messageTemplate.replace("{processTime}",  String.format(Settings.INTEGER_MESSAGES_FORMAT.getAsString(), customValues.getOrDefault("processTime", String.valueOf(task.getProcessTime())).toString()));
+        messageTemplate = messageTemplate.replace("{reaming_time}",  String.format(Settings.INTEGER_MESSAGES_FORMAT.getAsString(), customValues.getOrDefault("reaming_time", String.valueOf(task.getRemainingTime())).toString()));
+        messageTemplate = messageTemplate.replace("{state_message}",  String.format(Settings.STATE_MESSAGE_FORMAT.getAsString(), customValues.getOrDefault("state_message", task.getState().getStateMessage())));
+        messageTemplate = messageTemplate.replace("{runtime_clock}",  String.format(Settings.INTEGER_MESSAGES_FORMAT.getAsString(), customValues.getOrDefault("runtime_clock", String.valueOf(SchedulingEngine.getInstance().getRuntimeClock())).toString()));
         return messageTemplate;
     }
 

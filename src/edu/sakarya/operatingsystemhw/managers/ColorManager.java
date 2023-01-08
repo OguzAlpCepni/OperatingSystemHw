@@ -21,11 +21,10 @@ public class ColorManager {
     * 255^3 rgb değerini anlamlı şekilde parçalayabilmek için kullanılan sabit
     */
 
-    private static int EFFECTIVE_COLOR_COUNT = 10;
-
     static {
         ColorManager.fillColors();   
     }
+    
     private static void fillColors() {
         Collections.addAll(ColorManager.colors, Colors.values());
     }

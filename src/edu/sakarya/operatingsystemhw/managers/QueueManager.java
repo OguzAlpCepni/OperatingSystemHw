@@ -1,16 +1,19 @@
 package edu.sakarya.operatingsystemhw.managers;
 
 import edu.sakarya.operatingsystemhw.engines.FIFOQueueEngine;
+import edu.sakarya.operatingsystemhw.enums.States;
 import edu.sakarya.operatingsystemhw.models.JobQueue;
 import edu.sakarya.operatingsystemhw.models.Task;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public class QueueManager {
 
     private static QueueManager queueManager;
     private HashMap<Integer, JobQueue> queues;
     private JobQueue feedbackQueue;
+    private Optional<Task> lastTask;
 
     private QueueManager() {
     	queues = new HashMap<Integer, JobQueue>();
@@ -19,6 +22,7 @@ public class QueueManager {
         queues.put(2,new JobQueue(new FIFOQueueEngine()));
         queues.put(3,new JobQueue(new FIFOQueueEngine()));
         feedbackQueue = new JobQueue(new FIFOQueueEngine());
+        lastTask = Optional.empty();
     }
     
     public static QueueManager getInstance(){
@@ -35,8 +39,7 @@ public class QueueManager {
     	feedbackQueue.push(task);
     }
     
-
-    public Task getNextTask() {
+    public Task chooseNextTask() {
     	Task pickedTask = queues.get(0).pop();
     	
     	//sistemin gerçek zamanlı bir süreci varsa, önce onu yürütün
@@ -50,6 +53,18 @@ public class QueueManager {
     		if(task != null) return task;
     	}
     	return null;
+    	
+    }
+
+    public Task getNextTask() {
+    	Task pickedTask = this.chooseNextTask();
+    	
+    	if(lastTask.isPresent() && pickedTask != null && !pickedTask.equals(lastTask.get())) {
+    		lastTask.get().setState(States.WAITING);
+    	}
+
+		lastTask = Optional.ofNullable(pickedTask);
+    	return pickedTask;
     }
     
     public JobQueue getFeedbackQueue() {

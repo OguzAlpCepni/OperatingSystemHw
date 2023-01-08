@@ -3,7 +3,7 @@ package edu.sakarya.operatingsystemhw.enums;
 public enum States {
     CREATED("basladi"),
     RUNNING("yurutuluyor"),
-    WAITING("bekliyor"),
+    WAITING("askida"),
     READY("hazir"),
     STOPPED("sonlandi");
 

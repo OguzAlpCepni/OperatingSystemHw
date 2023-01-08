@@ -11,10 +11,10 @@ public enum JobQueues {
         this.queueEngine = queueEngine;
     }
 
-    public QueueEngine getQueueEngine(){
+	public QueueEngine getQueueEngine(){
         try {
-            return (QueueEngine) Class.forName(this.queueEngine).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            return (QueueEngine) Class.forName(this.queueEngine).getDeclaredConstructor().newInstance();
+        } catch (IllegalArgumentException | ReflectiveOperationException  | SecurityException e) {
             e.printStackTrace();
         }
         return null;

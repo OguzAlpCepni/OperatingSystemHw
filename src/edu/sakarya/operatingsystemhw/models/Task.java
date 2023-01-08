@@ -9,14 +9,13 @@ import edu.sakarya.operatingsystemhw.managers.ColorManager;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.UUID;
 
 public class Task implements ITask{
 
     /*
     * Processin id değerini tutar
     */
-    private final UUID id;
+    private final Integer id;
 
 
     /*
@@ -33,7 +32,7 @@ public class Task implements ITask{
     * Processin başlangiç zamanı
     * Milisaniye olarak saklanmıştır.
     */
-    private final long startTime;
+    private final Integer startTime;
 
     /*
     * Processin cpuyu elinde tutmak istediği süre
@@ -55,9 +54,9 @@ public class Task implements ITask{
      */
     private Process process;
 
-    public Task(Integer processTime, Integer priority) {
-        this.id = UUID.randomUUID();
-        this.startTime = System.currentTimeMillis();
+    public Task(Integer id, Integer startTime, Integer processTime, Integer priority) {
+        this.id = id;
+        this.startTime = startTime;
         this.burnTime = 0;
         this.priority = priority;
         this.processTime = processTime;
@@ -66,7 +65,7 @@ public class Task implements ITask{
         this.onCreate();
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -74,14 +73,18 @@ public class Task implements ITask{
         return state;
     }
     public void setState(States state) {
-        this.state = state;
+    	if(this.state == state) return;
+        
+    	this.state = state;
+        this.onStateChanged();
+    	
     }
 
     public Colors getColor() {
         return color;
     }
 
-    public long getStartTime() {
+    public Integer getStartTime() {
         return startTime;
     }
 
@@ -108,7 +111,7 @@ public class Task implements ITask{
     public Integer getRemainingTime() {
         return this.processTime - this.burnTime;
     }
-
+   
     @Override
     public void onStateChanged() {
         Messages.ON_STATE_CHANGED.sendMessageForTask(this);
@@ -116,7 +119,7 @@ public class Task implements ITask{
 
     @Override
     public void onCreate() {
-        Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.CREATED.getStateMessage());
+        Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state_message", States.CREATED.getStateMessage(), "runtime_clock", this.startTime.toString());
         String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1).replaceAll("/", "\\\\\\\\");
         try {
             this.process = new ProcessBuilder("java", "-jar", path, "simulationProcess").start();
@@ -135,12 +138,23 @@ public class Task implements ITask{
             stdin.close();
             this.process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
-            e.printStackTrace();
+        	//pass
+        	return;
         }
     }
 
     public void burn(){
         this.burnTime++;
         this.onTick();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Task task = (Task) o;
+
+        return id == task.id;
     }
 }
