@@ -1,20 +1,21 @@
 package edu.sakarya.operatingsystemhw.engines;
 
 import edu.sakarya.operatingsystemhw.interfaces.QueueEngine;
+import edu.sakarya.operatingsystemhw.models.Task;
 
 import java.util.PriorityQueue;
 
-public class PriorityOrderedQueue <T> implements QueueEngine<T> {
+public class PriorityOrderedQueue implements QueueEngine {
     // Create a new PriorityQueue to store the elements of the queue
-    private PriorityQueue<T> queue = new PriorityQueue<T>();
+    private PriorityQueue<Task> queue = new PriorityQueue<Task>();
 
     // Method to add an element to the queue
-    public void enqueue(T item) {
+    public void enqueue(Task item) {
         queue.add(item);
     }
 
     // Method to remove an element from the queue
-    public T dequeue() {
+    public Task dequeue() {
         return queue.remove();
     }
 

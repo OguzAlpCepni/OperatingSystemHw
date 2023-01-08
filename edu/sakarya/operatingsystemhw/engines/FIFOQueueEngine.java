@@ -1,20 +1,21 @@
 package edu.sakarya.operatingsystemhw.engines;
 
 import edu.sakarya.operatingsystemhw.interfaces.QueueEngine;
+import edu.sakarya.operatingsystemhw.models.Task;
 
 import java.util.LinkedList;
 
-public class FIFOQueueEngine<T> implements QueueEngine<T> {
+public class FIFOQueueEngine implements QueueEngine {
     // Create a new LinkedList to store the elements of the queue
-    private LinkedList<T> queue = new LinkedList<T>();
+    private LinkedList<Task> queue = new LinkedList<Task>();
 
     // Method to add an element to the end of the queue
-    public void enqueue(T item) {
+    public void enqueue(Task item) {
         queue.addLast(item);
     }
 
     // Method to remove an element from the front of the queue
-    public T dequeue() {
+    public Task dequeue() {
         return queue.removeFirst();
     }
 

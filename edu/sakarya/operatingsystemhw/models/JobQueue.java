@@ -4,7 +4,7 @@ import edu.sakarya.operatingsystemhw.enums.JobQueues;
 import edu.sakarya.operatingsystemhw.interfaces.QueueEngine;
 
 
-public class JobQueue<T> {
+public class JobQueue {
     private QueueEngine queueEngine;
     public JobQueue(QueueEngine queueEngine) {
         this.queueEngine = queueEngine;
@@ -21,10 +21,11 @@ public class JobQueue<T> {
         this.setQueueEngine(queueEngine.getQueueEngine());
     }
 
-    public void push(T task){
+    public void push(Task task){
         this.queueEngine.enqueue(task);
     }
-    public T pop(){
-        return (T) this.queueEngine.dequeue();
+    public Task pop(){
+    	if(this.queueEngine.size() <= 0) return null;
+    	return this.queueEngine.dequeue();
     }
 }

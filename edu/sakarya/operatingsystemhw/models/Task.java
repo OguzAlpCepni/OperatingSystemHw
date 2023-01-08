@@ -8,6 +8,7 @@ import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.managers.ColorManager;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -119,24 +120,23 @@ public class Task implements ITask{
     @Override
     public void onCreate() {
         Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state", States.CREATED.getStateMessage());
+        String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1).replaceAll("/", "\\\\\\\\");
         try {
-            Path path = Paths.get(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            String command = "java " + path.toAbsolutePath().toString() + " simulationProcess";
-            try {
-                this.process = new ProcessBuilder(command).start();
-            } catch(IOException e) {
-                e.printStackTrace();
-                this.process = null;
-            }
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            this.process = new ProcessBuilder("java", "-jar", path, "simulationProcess").start();
+        } catch(IOException e) {
+            e.printStackTrace();
+            this.process = null;
         }
     }
 
     @Override
     public void onTick() {
         try {
-            this.process.getOutputStream().write(Messages.ON_STATE_CHANGED.getMessage().getBytes());
+            OutputStream stdin = this.process.getOutputStream();
+            stdin.write(Messages.ON_STATE_CHANGED.getMessageForTask(this).getBytes());
+            stdin.flush();
+            stdin.close();
+            this.process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
             e.printStackTrace();
         }

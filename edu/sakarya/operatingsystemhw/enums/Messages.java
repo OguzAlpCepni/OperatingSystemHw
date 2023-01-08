@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Messages {
-    ON_STATE_CHANGED("{runtime_clock} sn process {state_message} (id:{id} öncelik: {priority} kalan süre:{reaming_time} sn");
+    ON_STATE_CHANGED("{runtime_clock} sn process {state_message} (id:{id} oncelik: {priority} kalan sure:{reaming_time} sn");
 
     /**
      * Mesaj
@@ -56,6 +56,10 @@ public enum Messages {
     public void sendColoredMessage(String message, Colors color) {
         System.out.println(color.getAnsiColor() + message + Colors.RESET.getAnsiColor());
     }
+    
+    private String getColoredMessage(String message, Colors color) {
+    	return color.getAnsiColor() + message + Colors.RESET.getAnsiColor();
+    }
 
     /**
      * Taski baz alarak renklendirilmis gondermek icin kullanilir.
@@ -63,6 +67,10 @@ public enum Messages {
      */
     public void sendMessageForTask(Task task) {
         this.sendColoredMessage(this.formatMessageForTask(task, Collections.<String, String>emptyMap()), task.getColor());
+    }
+    
+    public String getMessageForTask(Task task) {
+    	return getColoredMessage(this.formatMessageForTask(task, Collections.<String, String>emptyMap()), task.getColor());
     }
 
     /**

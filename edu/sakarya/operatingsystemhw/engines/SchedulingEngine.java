@@ -1,11 +1,9 @@
 package edu.sakarya.operatingsystemhw.engines;
 
 import edu.sakarya.operatingsystemhw.enums.States;
-import edu.sakarya.operatingsystemhw.interfaces.ITask;
 import edu.sakarya.operatingsystemhw.managers.QueueManager;
 import edu.sakarya.operatingsystemhw.models.Task;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
