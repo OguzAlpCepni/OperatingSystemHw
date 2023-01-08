@@ -1,20 +1,17 @@
 package edu.sakarya.operatingsystemhw.enums;
 
 public enum States {
-    CREATED("basladi"),
-    RUNNING("yurutuluyor"),
-    WAITING("askida"),
-    READY("hazir"),
-    STOPPED("sonlandi");
+  CREATED("basladi"), RUNNING("yurutuluyor"), WAITING("askida"), READY("hazir"), STOPPED(
+      "sonlandi");
 
-    private String stateMessage;
+  private String stateMessage;
 
-    private States(String stateMessage) {
-        this.stateMessage = stateMessage;
-    }
+  private States(String stateMessage) {
+    this.stateMessage = stateMessage;
+  }
 
-    public String getStateMessage() {
-        return stateMessage;
-    }
+  public String getStateMessage() {
+    return stateMessage;
+  }
 
 }
