@@ -31,7 +31,7 @@ public enum Messages {
     }
 
     /**
-     * Mesajin icindeki degiskenleri degistirir.
+     * Mesajın içindeki değişkenleri değiştirir.
      * @param task
      * @return
      */
@@ -49,7 +49,7 @@ public enum Messages {
     }
 
     /**
-     * Renklendirilmis mesaj gondermek icin kullanilir.
+     * Renklendirilmiş mesaj göndermek için kullanılır.
      * @param message, color
      * @return
      */
@@ -62,7 +62,7 @@ public enum Messages {
     }
 
     /**
-     * Taski baz alarak renklendirilmis gondermek icin kullanilir.
+     * Taskı baz alarak renklendirilmiş göndermek için kullanılır.
     * @param task
      */
     public void sendMessageForTask(Task task) {
@@ -74,7 +74,7 @@ public enum Messages {
     }
 
     /**
-     * Taski baz almasina ragmen uzerine yazilmasi gereken alanları guncellemek icin kullanilir.
+     * Taskı baz almasına rağmen üzerine yazılması gereken alanları güncellemek için kullanılır.
      * @param task, customValues
      */
     public void sendMessageForTask(Task task, String ... customPlaceholders){

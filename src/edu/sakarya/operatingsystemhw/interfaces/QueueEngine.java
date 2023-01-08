@@ -3,15 +3,15 @@ package edu.sakarya.operatingsystemhw.interfaces;
 import edu.sakarya.operatingsystemhw.models.Task;
 
 public interface QueueEngine {
-    // Method to add an element to the queue
+    // Kuyruğa bir öğe ekleme yöntemi
     public void enqueue(Task item);
 
-    // Method to remove an element from the queue
+    // Bir öğeyi sıradan kaldırma yöntemi
     public Task dequeue();
 
-    // Method to return the size of the queue
+    // Kuyruğun boyutunu döndürme yöntemi
     public int size();
 
-    // Method to check if the queue is empty
+    // Kuyruğun boş olup olmadığını kontrol etme yöntemi
     public boolean isEmpty();
 }

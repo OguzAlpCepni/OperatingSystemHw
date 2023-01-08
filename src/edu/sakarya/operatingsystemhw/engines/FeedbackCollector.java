@@ -31,7 +31,7 @@ public class FeedbackCollector {
             			task.setPriority(task.getPriority() - Settings.FEEDBACK_PRIORITY_STEP.getAsInteger());
             		}
             		
-            		// AddTheQueue methodu, hangi kuyruga eklenecegine priority referansiyla karar verir.
+            		// AddTheQueue methodu, hangi kuyruğa ekleneceğine priority referansıyla karar verir.
             		queueManager.addTheQueue(task);
             		
             	}

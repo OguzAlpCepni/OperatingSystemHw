@@ -6,7 +6,7 @@ public enum Settings {
 	MIN_REACHABLE_PRIORITY_EXCHANGE_LIMIT(1),
 	FEEDBACK_PRIORITY_STEP(1),
 	
-	FEEDBACK_COLLECTOR_QUANTUM_TIME(1000) // as millisecond
+	FEEDBACK_COLLECTOR_QUANTUM_TIME(1000) // milisaniye olarak
 	;
 	
 	private Object configuration;

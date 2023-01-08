@@ -6,25 +6,25 @@ import edu.sakarya.operatingsystemhw.models.Task;
 import java.util.PriorityQueue;
 
 public class PriorityOrderedQueue implements QueueEngine {
-    // Create a new PriorityQueue to store the elements of the queue
+    // Kuyruğun öğelerini depolamak için yeni bir PriorityQueue oluşturma
     private PriorityQueue<Task> queue = new PriorityQueue<Task>();
 
-    // Method to add an element to the queue
+    // Kuyruğa bir öğe ekleme yöntemi
     public void enqueue(Task item) {
         queue.add(item);
     }
 
-    // Method to remove an element from the queue
+    // Bir öğeyi sıradan kaldırma yöntemi
     public Task dequeue() {
         return queue.remove();
     }
 
-    // Method to return the size of the queue
+    // Kuyruğun boyutunu döndürme yöntemi
     public int size() {
         return queue.size();
     }
 
-    // Method to check if the queue is empty
+    // Kuyruğun boş olup olmadığını kontrol etme yöntemi
     public boolean isEmpty() {
         return queue.isEmpty();
     }

@@ -39,12 +39,12 @@ public class QueueManager {
     public Task getNextTask() {
     	Task pickedTask = queues.get(0).pop();
     	
-    	//if the system has a real time process, firstly execute it 
+    	//sistemin gerçek zamanlı bir süreci varsa, önce onu yürütün
     	if (pickedTask != null) return pickedTask;
     	
-    	//1 for passing realtime queue
-    	//ayni zamanda round robin algoritmasi olarak calisir,
-    	//yeniden eklenmesini feedback collector saglar.
+    	//Gerçek zamanlı sırayı geçmek için 1
+    	//Aynı zamanda round robin algoritması olarak çalışır,
+    	//yeniden eklenmesini feedback collector sağlar.
     	for(int i = 1;i < queues.size();i++) {
     		Task task = queues.get(i).pop();
     		if(task != null) return task;

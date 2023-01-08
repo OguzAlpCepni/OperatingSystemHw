@@ -2,34 +2,34 @@ package edu.sakarya.operatingsystemhw.enums;
 
 public enum Colors {
    RESET("\033[0m"),
-   BLACK("\033[0;30m"),// BLACK
-   RED("\033[0;31m"),  // RED
-   GREEN("\033[0;32m"),// GREEN
-   YELLOW("\033[0;33m"), // YELLOW
-   BLUE("\033[0;34m"), // BLUE
-   PURPLE("\033[0;35m"), // PURPLE
+   BLACK("\033[0;30m"),// SİYAH
+   RED("\033[0;31m"),  // KIRMIZI
+   GREEN("\033[0;32m"),// YEŞİL
+   YELLOW("\033[0;33m"), // SARI
+   BLUE("\033[0;34m"), // MAVİ
+   PURPLE("\033[0;35m"), // MOR
    CYAN("\033[0;36m"), // CYAN
-   WHITE("\033[0;37m"),// WHITE
+   WHITE("\033[0;37m"),// BEYAZ
 
-    // Bold
-   BLACK_BOLD("\033[1;30m"), // BLACK
-   RED_BOLD("\033[1;31m"), // RED
-   GREEN_BOLD("\033[1;32m"), // GREEN
-   YELLOW_BOLD("\033[1;33m"),// YELLOW
-   BLUE_BOLD("\033[1;34m"),// BLUE
-   PURPLE_BOLD("\033[1;35m"),// PURPLE
+    // Kalın
+   BLACK_BOLD("\033[1;30m"), // SİYAH
+   RED_BOLD("\033[1;31m"), // KIRMIZI
+   GREEN_BOLD("\033[1;32m"), // YEŞİL
+   YELLOW_BOLD("\033[1;33m"),// SARI
+   BLUE_BOLD("\033[1;34m"),// MAVİ
+   PURPLE_BOLD("\033[1;35m"),// MOR
    CYAN_BOLD("\033[1;36m"),// CYAN
-   WHITE_BOLD("\033[1;37m"), // WHITE
+   WHITE_BOLD("\033[1;37m"), // BEYAZ
 
-    // Underline
-   BLACK_UNDERLINED("\033[4;30m"), // BLACK
-   RED_UNDERLINED("\033[4;31m"), // RED
-   GREEN_UNDERLINED("\033[4;32m"), // GREEN
-   YELLOW_UNDERLINED("\033[4;33m"),// YELLOW
-   BLUE_UNDERLINED("\033[4;34m"),// BLUE
-   PURPLE_UNDERLINED("\033[4;35m"),// PURPLE
+    // Altı çizgili
+   BLACK_UNDERLINED("\033[4;30m"), // SİYAH
+   RED_UNDERLINED("\033[4;31m"), // KIRMIZI
+   GREEN_UNDERLINED("\033[4;32m"), // YEŞİL
+   YELLOW_UNDERLINED("\033[4;33m"),// SARI
+   BLUE_UNDERLINED("\033[4;34m"),// MAVİ
+   PURPLE_UNDERLINED("\033[4;35m"),// MOR
    CYAN_UNDERLINED("\033[4;36m"),// CYAN
-   WHITE_UNDERLINED("\033[4;37m"), // WHITE
+   WHITE_UNDERLINED("\033[4;37m"), // BEYAZ
 
    BLACK_BACKGROUND("\033[40m"),
    RED_BACKGROUND("\033[41m"),
