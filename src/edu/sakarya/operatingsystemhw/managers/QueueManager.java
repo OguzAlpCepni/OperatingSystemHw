@@ -61,7 +61,11 @@ public class QueueManager {
   }
 
   public Task getNextTask() throws EmptyQueueException {
-    Task pickedTask = this.chooseNextTask();
+    Task pickedTask = null;
+    do {
+      pickedTask = this.chooseNextTask();
+    } while (pickedTask != null && (pickedTask.getState() == States.STOPPED | pickedTask.getState() == States.TIMEOUT));
+    
     if (lastTask.isPresent() && pickedTask != null && !pickedTask.equals(lastTask.get())) {
       lastTask.get().setState(States.WAITING);
     }

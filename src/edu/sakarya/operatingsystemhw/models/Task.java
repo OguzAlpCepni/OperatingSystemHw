@@ -119,7 +119,7 @@ public class Task implements ITask {
   public Integer getRemainingTime() {
     return this.processTime - this.burnTime;
   }
-  
+
   public void onTimeout() {
     Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state_message",
         States.TIMEOUT.getStateMessage());
@@ -147,14 +147,15 @@ public class Task implements ITask {
 
   @Override
   public void onTick() {
+    String message = Messages.ON_STATE_CHANGED.getMessageForTask(this);
     try {
       OutputStream stdin = this.process.getOutputStream();
-      stdin.write(Messages.ON_STATE_CHANGED.getMessageForTask(this).getBytes());
+      stdin.write(message.getBytes());
       stdin.flush();
       stdin.close();
       this.process.getInputStream().transferTo(System.out);
     } catch (IOException e) {
-      // pass
+      System.out.println("\b" + message);
       return;
     }
   }

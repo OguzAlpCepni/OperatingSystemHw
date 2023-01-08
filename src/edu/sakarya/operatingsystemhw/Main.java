@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Main {
 
   public static void main(String[] args) throws FileNotFoundException {
-    
+
     if (args.length == 1 && args[0].equalsIgnoreCase("simulationProcess")) {
       new Thread(new Runnable() {
         @Override
@@ -24,7 +24,7 @@ public class Main {
           System.exit(1);
         }
       }).start();
-      
+
       Scanner scanner = new Scanner(System.in);
       String newLine = "";
       String lastPrintedLine = "";
@@ -38,7 +38,7 @@ public class Main {
       scanner.close();
       System.exit(0);
     }
-    
+
     File file = null;
     if (args.length != 1) {
       System.out.println("Dosya Bulunamadi.");

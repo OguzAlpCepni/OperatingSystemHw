@@ -28,30 +28,21 @@ public class SchedulingEngine {
         try {
           task = queueManager.getNextTask();
         } catch (EmptyQueueException e) {
-          if (runtimeClock == -1)
-            return;
-          System.out.println("All queues empty, shuting down");
-          System.exit(0);
+          //nothing
+          //System.out.println("All queues empty, shuting down");
+          //System.exit(0);
         }
         runtimeClock++;
         if (task != null) {
-          switch (task.getState()) {
-            case READY:
-            case WAITING:
-            case CREATED:
-            case RUNNING:
-              task.setState(States.RUNNING);
-              task.burn();
-              if (task.getBurnTime() >= task.getProcessTime()) {
-                task.setState(States.STOPPED);
-              } else {
-                queueManager.collect(task);
-              };
-            case STOPPED:
-            case TIMEOUT:
-            default:
-              break;
-          }
+          if(task.getState() == States.STOPPED | task.getState() == States.TIMEOUT) this.run();
+
+          task.setState(States.RUNNING);
+          task.burn();
+          if (task.getBurnTime() >= task.getProcessTime()) {
+            task.setState(States.STOPPED);
+          } else {
+            queueManager.collect(task);
+          };
         }
       }
     };
