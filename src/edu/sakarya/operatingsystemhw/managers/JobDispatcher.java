@@ -50,10 +50,10 @@ public class JobDispatcher {
     }
 
     public List<Task> dispatch() throws IOException {
-        // Bos bir tasks listesi olustur
+        // Boş bir tasks listesi oluştur
         List<Task> tasks = new ArrayList<>();
 
-        // Dosya imlecini kaldigi yerden devam etmesi icin ayarla
+        // Dosya imlecini kaldaığı yerden devam etmesi için ayarla
         try {
         	this.file.seek(cursor);	
         }catch(IOException ex) {

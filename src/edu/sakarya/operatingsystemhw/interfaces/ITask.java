@@ -4,17 +4,17 @@ import java.io.IOException;
 
 public interface ITask {
     /*
-    * Bu method task olusturuldugunda cagirilacaktir.
+    * Bu method task oluşturulduğunda çağırılacaktır.
     */
     void onCreate() throws IOException;
 
     /*
-    * Bu method taskin calistigi her saniye cagirilacaktir.
+    * Bu method taskın çalıştığı her saniye çağırılacaktır.
     */
     void onTick();
 
     /*
-    * Bu method taskin durumu degistiginde calisacaktir.
+    * Bu method taskın durumu değiştiğinde çalışacaktır.
     */
     void onStateChanged();
 }

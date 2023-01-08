@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Task implements ITask{
 
     /*
-    * Processin id degerini tutar
+    * Processin id değerini tutar
     */
     private final UUID id;
 
@@ -30,23 +30,23 @@ public class Task implements ITask{
     private final Colors color;
 
     /*
-    * Processin baslangic zamani
-    * Milisaniye olarak saklanmistir.
+    * Processin başlangiç zamanı
+    * Milisaniye olarak saklanmıştır.
     */
     private final long startTime;
 
     /*
-    * Processin cpuyu elinde tutmak istedigi sure
+    * Processin cpuyu elinde tutmak istediği süre
     */
     private final Integer processTime;
 
     /*
-     * Processin cpuda gecirdigi sure
+     * Processin cpuda geçirdiği süre
      */
     private Integer burnTime;
 
     /*
-     * Processin oncelik degeri
+     * Processin öncelik değeri
      */
     private Integer priority;
 

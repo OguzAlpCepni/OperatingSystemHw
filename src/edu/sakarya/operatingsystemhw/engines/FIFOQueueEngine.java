@@ -6,25 +6,25 @@ import edu.sakarya.operatingsystemhw.models.Task;
 import java.util.LinkedList;
 
 public class FIFOQueueEngine implements QueueEngine {
-    // Create a new LinkedList to store the elements of the queue
+    // Kuyruğun öğelerini depolamak için yeni bir LinkedList oluşturma
     private LinkedList<Task> queue = new LinkedList<Task>();
 
-    // Method to add an element to the end of the queue
+    // Kuyruğun sonuna bir öğe ekleme yöntemi
     public void enqueue(Task item) {
         queue.addLast(item);
     }
 
-    // Method to remove an element from the front of the queue
+    // Sıranın önünden bir öğeyi kaldırma yöntemi
     public Task dequeue() {
         return queue.removeFirst();
     }
 
-    // Method to return the size of the queue
+    // Kuyruğun boyutunu döndürme yöntemi
     public int size() {
         return queue.size();
     }
 
-    // Method to check if the queue is empty
+    // Kuyruğun boş olup olmadığını kontrol etme yöntemi
     public boolean isEmpty() {
         return queue.isEmpty();
     }

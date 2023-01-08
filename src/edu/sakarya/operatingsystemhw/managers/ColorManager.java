@@ -10,15 +10,15 @@ import java.util.Random;
 
 public class ColorManager {
     /*
-    * liste kullanima uygun potansiyel tum renkleri saklar.
+    * Liste kullanıma uygun potansiyel tüm renkleri saklar.
     */
     private static List<Colors> colors = new ArrayList<Colors>();
     /*
-    * memory leak engellemek için saklanmış random instance
+    * Memory leak engellemek için saklanmış random instance
     */
     private static Random random = new SecureRandom();
     /*
-    * 255^3 rgb degerini anlamli sekilde parcalayabilmek icin kullanilan sabit
+    * 255^3 rgb değerini anlamlı şekilde parçalayabilmek için kullanılan sabit
     */
 
     private static int EFFECTIVE_COLOR_COUNT = 10;
