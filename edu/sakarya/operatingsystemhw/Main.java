@@ -1,5 +1,6 @@
 package edu.sakarya.operatingsystemhw;
 
+import edu.sakarya.operatingsystemhw.engines.FeedbackCollector;
 import edu.sakarya.operatingsystemhw.engines.SchedulingEngine;
 import edu.sakarya.operatingsystemhw.managers.JobDispatcher;
 
@@ -16,6 +17,7 @@ public class Main {
 			while((newLine = scanner.nextLine()) != null){
 				System.out.println(newLine);
 			}
+			scanner.close();
 			return;
 		}
 		File file = null;
@@ -27,9 +29,11 @@ public class Main {
 			System.out.println("File not found.");
 			return;
 		}
+		FeedbackCollector feedbackCollector = FeedbackCollector.getInstance();
 		SchedulingEngine schedulingEngine = SchedulingEngine.getInstance();
 		JobDispatcher dispatcher = new JobDispatcher(file);
 
+		feedbackCollector.run();
 		schedulingEngine.run();
 		dispatcher.run();
 	}

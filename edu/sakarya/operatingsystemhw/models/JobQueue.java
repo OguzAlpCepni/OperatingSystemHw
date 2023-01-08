@@ -28,4 +28,7 @@ public class JobQueue {
     	if(this.queueEngine.size() <= 0) return null;
     	return this.queueEngine.dequeue();
     }
+    public boolean isEmpty() {
+    	this.queueEngine.isEmpty();
+    }
 }
