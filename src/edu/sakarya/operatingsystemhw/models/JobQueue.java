@@ -29,6 +29,6 @@ public class JobQueue {
     	return this.queueEngine.dequeue();
     }
     public boolean isEmpty() {
-    	this.queueEngine.isEmpty();
+    	return this.queueEngine.isEmpty();
     }
 }

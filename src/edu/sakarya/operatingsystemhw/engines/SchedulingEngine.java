@@ -36,6 +36,8 @@ public class SchedulingEngine {
                             if(task.getBurnTime() >= task.getProcessTime()){
                                 task.setState(States.STOPPED);
                                 task.onStateChanged();
+                            } else {
+                            	queueManager.collect(task);
                             }
                     }
                 }
