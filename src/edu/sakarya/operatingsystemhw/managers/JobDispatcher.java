@@ -50,7 +50,7 @@ public class JobDispatcher {
     };
     timer.scheduleAtFixedRate(timerTask,
 
-        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_WORKERS.getAsDouble()
+        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_JOB_DISPATCHER.getAsDouble()
             * Settings.JOB_DISPATCHER_QUANTUM_TIME.getAsInteger()),
         Settings.JOB_DISPATCHER_QUANTUM_TIME.getAsInteger());
   }

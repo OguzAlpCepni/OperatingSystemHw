@@ -15,7 +15,7 @@ public class SchedulingEngine {
   private static SchedulingEngine instance;
 
   private SchedulingEngine() {
-    this.runtimeClock = 0;
+    this.runtimeClock = -1;
     this.queueManager = QueueManager.getInstance();
   }
 
@@ -28,30 +28,35 @@ public class SchedulingEngine {
         try {
           task = queueManager.getNextTask();
         } catch (EmptyQueueException e) {
-          System.out.println("All queues empty, shutding down");
+          if (runtimeClock == -1)
+            return;
+          System.out.println("All queues empty, shuting down");
           System.exit(0);
         }
+        runtimeClock++;
         if (task != null) {
           switch (task.getState()) {
             case READY:
             case WAITING:
+            case CREATED:
+            case RUNNING:
               task.setState(States.RUNNING);
-            case STOPPED:
-              break;
-            default:
               task.burn();
               if (task.getBurnTime() >= task.getProcessTime()) {
                 task.setState(States.STOPPED);
               } else {
                 queueManager.collect(task);
-              } ;
+              };
+            case STOPPED:
+            case TIMEOUT:
+            default:
+              break;
           }
         }
-        runtimeClock++;
       }
     };
     timer.scheduleAtFixedRate(timerTask,
-        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_WORKERS.getAsDouble()
+        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_PROCESS_SCHEDULING.getAsDouble()
             * Settings.PROCESS_SCHEDULING_QUANTUM_TIME.getAsInteger()),
         Settings.PROCESS_SCHEDULING_QUANTUM_TIME.getAsInteger());
   }

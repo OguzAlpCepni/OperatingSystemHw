@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ColorManager {
   /*
@@ -20,6 +21,7 @@ public class ColorManager {
   /*
    * 255^3 rgb değerini anlamlı şekilde parçalayabilmek için kullanılan sabit
    */
+  private static ReentrantLock lock = new ReentrantLock();
 
   static {
     ColorManager.fillColors();
@@ -30,11 +32,21 @@ public class ColorManager {
   }
 
   public static Colors takeRandomColor() {
-    int index = random.nextInt(colors.size());
-    return colors.remove(index);
+    try {
+      lock.tryLock();
+      int index = random.nextInt(colors.size());
+      return colors.remove(index);
+    } finally {
+      lock.unlock();
+    }
   }
 
   public static void freeColor(Colors color) {
-    colors.add(color);
+    try {
+      lock.tryLock();
+      colors.add(color);
+    } finally {
+      lock.unlock();
+    }
   }
 }

@@ -27,20 +27,25 @@ public class FeedbackCollector {
 
           if (task == null)
             continue;
+
+          // AddTheQueue methodu, hangi kuyruğa ekleneceğine priority referansıyla karar verir.
+          queueManager.addTheQueue(task);
+
+          if (task.getPriority() == 0)
+            continue;
+
           int newPriority = task.getPriority() + Settings.FEEDBACK_PRIORITY_STEP.getAsInteger();
+
           if (newPriority >= Settings.MIN_REACHABLE_PRIORITY_EXCHANGE_LIMIT.getAsInteger()
               && newPriority <= Settings.MAX_REACHABLE_PRIORITY_EXCHANGE_LIMIT.getAsInteger()) {
             task.setPriority(newPriority);
           }
 
-          // AddTheQueue methodu, hangi kuyruğa ekleneceğine priority referansıyla karar verir.
-          queueManager.addTheQueue(task);
-
         }
       }
     };
     timer.scheduleAtFixedRate(timerTask,
-        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_WORKERS.getAsDouble()
+        (long) (Settings.INITIALIZE_DELAY_MULTIPLIER_FOR_FEEDBACK_COLLECTOR.getAsDouble()
             * Settings.FEEDBACK_COLLECTOR_QUANTUM_TIME.getAsInteger()),
         Settings.FEEDBACK_COLLECTOR_QUANTUM_TIME.getAsInteger());
   }

@@ -119,6 +119,11 @@ public class Task implements ITask {
   public Integer getRemainingTime() {
     return this.processTime - this.burnTime;
   }
+  
+  public void onTimeout() {
+    Messages.ON_STATE_CHANGED.sendMessageForTask(this, "state_message",
+        States.TIMEOUT.getStateMessage());
+  }
 
   @Override
   public void onStateChanged() {
@@ -133,6 +138,7 @@ public class Task implements ITask {
         .substring(1).replaceAll("/", "\\\\\\\\");
     try {
       this.process = new ProcessBuilder("java", "-jar", path, "simulationProcess").start();
+      ProcessTracker.track(process, this);
     } catch (IOException e) {
       e.printStackTrace();
       this.process = null;
