@@ -23,6 +23,7 @@ public class Main {
 		File file = null;
 		if(args.length != 1){
 			System.out.println("Dosya Bulunamadi.");
+			return;
 		}
 		file = new File(args[0]);
 		if(!file.exists()) {

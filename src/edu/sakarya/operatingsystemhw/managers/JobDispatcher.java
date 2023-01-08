@@ -78,13 +78,15 @@ public class JobDispatcher {
         if(!found){
             // Dosya imlecini kapat
             file.close();
+        } else {
+            // İmleç konumunu güncelle
+            cursor = file.getFilePointer();
+
+            // executeTime'i güncelle
+            executeTime++;
+
+        	
         }
-
-        // İmleç konumunu güncelle
-        cursor = file.getFilePointer();
-
-        // executeTime'i güncelle
-        executeTime++;
 
         // Oluşturulan tasks listesini geri döndür
         return tasks;

@@ -25,6 +25,8 @@ public class FeedbackCollector {
             	while(queue.isEmpty()) {
             		Task task = queue.pop();
             		
+            		if(task == null) continue;
+            		
             		if(task.getPriority() != Settings.MIN_REACHABLE_PRIORITY_EXCHANGE_LIMIT.getAsInteger()) {
             			task.setPriority(task.getPriority() - Settings.FEEDBACK_PRIORITY_STEP.getAsInteger());
             		}
